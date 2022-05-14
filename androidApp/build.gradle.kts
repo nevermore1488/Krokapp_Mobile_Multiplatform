@@ -1,6 +1,12 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 android {
@@ -26,10 +32,11 @@ android {
 }
 
 val composeVersion = "1.1.1"
+val daggerVersion = "2.38.1"
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
 
@@ -54,4 +61,15 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-rxjava2:$composeVersion")
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
+
+    // -- /Compose -- //
+
+    // Dagger
+    implementation("com.google.dagger:dagger:$daggerVersion")
+    kapt("com.google.dagger:dagger-compiler:$daggerVersion")
+    implementation("com.google.dagger:hilt-android:$daggerVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
+
+    // Kaspresso
+    androidTestImplementation("com.kaspersky.android-components:kaspresso:1.2.1")
 }
