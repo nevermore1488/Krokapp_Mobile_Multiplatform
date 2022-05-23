@@ -8,4 +8,6 @@ pluginManagement {
 
 rootProject.name = "Krokapp_Mobile_Multiplatform"
 include(":androidApp")
-include(":shared")
+include(":shared:data")
+include(":shared:domain")
+include(":shared:presentation")
