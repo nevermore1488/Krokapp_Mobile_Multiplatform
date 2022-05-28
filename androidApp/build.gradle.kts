@@ -76,15 +76,15 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
 
     // Kaspresso
-    androidTestImplementation("com.kaspersky.android-components:kaspresso:1.2.1")
+    androidTestImplementation("com.kaspersky.android-components:kaspresso:1.4.1")
 
     //Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation(sharedLibs.coroutines)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
     // KMM
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation(sharedLibs.ktor)
+    implementation(sharedLibs.ktorSerialization)
+    implementation(sharedLibs.contentNegotiation)
 
 }

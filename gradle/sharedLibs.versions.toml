@@ -1,0 +1,15 @@
+[versions]
+
+ktorVersion = "2.0.1"
+coroutinesVersion = "1.6.1"
+kotlinXSerializationJsonVersion = "1.3.3"
+
+[libraries]
+
+ktor = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
+ktorOkHttpClient = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorVersion" }
+ktorDarwinClient = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorVersion" }
+ktorSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
+kotlinXSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinXSerializationJsonVersion" }

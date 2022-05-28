@@ -17,13 +17,12 @@ kotlin {
     }
 
     sourceSets {
-        val coroutinesVersion = "1.6.1"
 
         val commonMain by getting {
             dependencies {
                 implementation(project(":shared:domain"))
 
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation(sharedLibs.coroutines)
             }
         }
         val commonTest by getting {

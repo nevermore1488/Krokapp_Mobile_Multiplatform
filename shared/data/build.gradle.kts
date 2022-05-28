@@ -18,17 +18,14 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.0.1"
-        val coroutinesVersion = "1.6.1"
-        val kotlinXSerializationJsonVersion = "1.3.3"
 
         val commonMain by getting {
             dependencies {
                 implementation(project(":shared:domain"))
 
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinXSerializationJsonVersion")
+                implementation(sharedLibs.ktor)
+                implementation(sharedLibs.coroutines)
+                implementation(sharedLibs.kotlinXSerialization)
             }
         }
         val commonTest by getting {
@@ -38,7 +35,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation(sharedLibs.ktorOkHttpClient)
             }
         }
         val androidTest by getting
@@ -52,7 +49,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation(sharedLibs.ktorDarwinClient)
             }
         }
         val iosX64Test by getting
