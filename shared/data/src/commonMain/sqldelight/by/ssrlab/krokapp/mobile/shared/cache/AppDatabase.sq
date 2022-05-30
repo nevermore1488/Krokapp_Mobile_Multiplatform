@@ -1,0 +1,18 @@
+CREATE TABLE CityRaw (
+                  id INTEGER AS Int NOT NULL PRIMARY KEY,
+                  city_id INTEGER AS Int NOT NULL,
+                  lang INTEGER AS Int NOT NULL,
+                  last_edit_time INTEGER AS Int,
+                  logo TEXT NOT NULL,
+                  name TEXT NOT NULL
+             );
+
+insertCity:
+INSERT INTO CityRaw
+VALUES ?;
+
+removeAllCities:
+DELETE FROM CityRaw;
+
+selectAllCities:
+SELECT * FROM CityRaw;

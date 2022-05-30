@@ -11,7 +11,7 @@ class GetCitiesUseCase(
     private val citiesRepository: CitiesRepository
 ) {
 
-    operator fun invoke(): Flow<List<City>> {
+    suspend operator fun invoke(): Flow<List<City>> {
         return citiesRepository.getCities()
     }
 }

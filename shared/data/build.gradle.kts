@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     kotlin("plugin.serialization") version "1.6.10"
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -26,6 +27,8 @@ kotlin {
                 implementation(sharedLibs.ktor)
                 implementation(sharedLibs.coroutines)
                 implementation(sharedLibs.kotlinXSerialization)
+                implementation(sharedLibs.sqlDelight)
+                implementation(sharedLibs.sqlDelightExtensions)
             }
         }
         val commonTest by getting {
@@ -35,7 +38,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(sharedLibs.ktorOkHttpClient)
+                implementation(sharedLibs.ktorAndroid)
+                implementation(sharedLibs.sqlDelightAndroid)
             }
         }
         val androidTest by getting
@@ -49,7 +53,8 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation(sharedLibs.ktorDarwinClient)
+                implementation(sharedLibs.ktorIos)
+                implementation(sharedLibs.sqlDelightIos)
             }
         }
         val iosX64Test by getting
@@ -70,5 +75,11 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 31
+    }
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "by.ssrlab.krokapp.mobile.shared.cache"
     }
 }

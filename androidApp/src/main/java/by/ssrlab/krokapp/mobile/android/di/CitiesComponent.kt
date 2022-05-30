@@ -11,5 +11,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CitiesComponent @Inject constructor(
     val vm: CitiesViewModel
-): ViewModel() {
+) : ViewModel() {
+
+    override fun onCleared() {
+        vm.clean()
+    }
 }

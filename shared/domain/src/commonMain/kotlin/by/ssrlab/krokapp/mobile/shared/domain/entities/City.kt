@@ -5,7 +5,5 @@ class City(
     val logo: String,
     val name: String,
     val lang: Int,
-    val lastEditTime: Int,
-    var lat: Double,
-    var lng: Double
+    val lastEditTime: Int?
 )

@@ -74,6 +74,7 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:$daggerVersion")
     implementation("com.google.dagger:hilt-android:$daggerVersion")
     kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // Kaspresso
     androidTestImplementation("com.kaspersky.android-components:kaspresso:1.4.1")
@@ -86,5 +87,6 @@ dependencies {
     implementation(sharedLibs.ktor)
     implementation(sharedLibs.ktorSerialization)
     implementation(sharedLibs.contentNegotiation)
+    implementation(sharedLibs.sqlDelightAndroid)
 
 }

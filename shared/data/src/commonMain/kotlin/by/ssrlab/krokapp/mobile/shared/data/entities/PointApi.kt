@@ -1,6 +1,6 @@
-package by.ssrlab.krokapp.mobile.shared.data.api.entities
+package by.ssrlab.krokapp.mobile.shared.data.entities
 
-class PointApi (
+class PointApi(
     var city_id: Int,
     var id: Int,
     var id_point: Int,

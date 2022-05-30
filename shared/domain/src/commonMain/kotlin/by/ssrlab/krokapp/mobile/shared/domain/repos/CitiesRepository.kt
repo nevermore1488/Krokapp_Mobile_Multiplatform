@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface CitiesRepository {
 
-    fun getCities(): Flow<List<City>>
+    suspend fun getCities(): Flow<List<City>>
 }

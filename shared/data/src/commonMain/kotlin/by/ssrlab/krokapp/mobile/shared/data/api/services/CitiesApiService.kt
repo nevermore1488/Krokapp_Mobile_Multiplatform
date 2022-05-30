@@ -1,10 +1,9 @@
 package by.ssrlab.krokapp.mobile.shared.data.api.services
 
-import by.ssrlab.krokapp.mobile.shared.data.api.entities.CityApi
+import by.ssrlab.krokapp.mobile.shared.data.entities.CityApi
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
-import io.ktor.http.*
 
 /**
  * @author Alexander Nevertovich
@@ -15,6 +14,6 @@ class CitiesApiService(
 ) {
 
     suspend fun getCities(): List<CityApi> {
-        return apiClient.get("$baseUrl/get_cities/111111") .body()
+        return apiClient.get("$baseUrl/get_cities/111111").body()
     }
 }

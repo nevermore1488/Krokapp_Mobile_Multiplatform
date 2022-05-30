@@ -1,14 +1,18 @@
 package by.ssrlab.krokapp.mobile.android.di
 
+import android.content.Context
+import by.ssrlab.krokapp.mobile.shared.cache.AppDatabase
+import by.ssrlab.krokapp.mobile.shared.cache.AppDatabaseQueries
 import by.ssrlab.krokapp.mobile.shared.data.api.services.CitiesApiService
-import by.ssrlab.krokapp.mobile.shared.data.mappers.CitiesApiMapper
 import by.ssrlab.krokapp.mobile.shared.data.repos.CitiesRepositoryImpl
 import by.ssrlab.krokapp.mobile.shared.domain.repos.CitiesRepository
 import by.ssrlab.krokapp.mobile.shared.domain.usecases.GetCitiesUseCase
 import by.ssrlab.krokapp.mobile.shared.presentation.viewmodels.CitiesViewModel
+import com.squareup.sqldelight.android.AndroidSqliteDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -37,9 +41,9 @@ object AppModule {
     @Provides
     fun provideCitiesRepository(
         citiesApiService: CitiesApiService,
-        citiesApiMapper: CitiesApiMapper
+        citiesDao: AppDatabaseQueries
     ): CitiesRepository {
-        return CitiesRepositoryImpl(citiesApiService, citiesApiMapper)
+        return CitiesRepositoryImpl(citiesApiService, citiesDao)
     }
 
     @Provides
@@ -66,7 +70,16 @@ object AppModule {
     }
 
     @Provides
-    fun provideCitiesApiMapper(): CitiesApiMapper {
-        return CitiesApiMapper()
+    fun provideAppDatabaseQueries(
+        appDatabase: AppDatabase
+    ): AppDatabaseQueries {
+        return appDatabase.appDatabaseQueries
+    }
+
+    @Provides
+    fun provideAppDatabase(
+        @ApplicationContext context: Context
+    ): AppDatabase {
+        return AppDatabase(AndroidSqliteDriver(AppDatabase.Schema, context, "app.db"))
     }
 }
