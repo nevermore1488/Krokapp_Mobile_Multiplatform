@@ -18,6 +18,8 @@ import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 
 @Module
@@ -41,9 +43,10 @@ object AppModule {
     @Provides
     fun provideCitiesRepository(
         citiesApiService: CitiesApiService,
-        citiesDao: AppDatabaseQueries
+        citiesDao: AppDatabaseQueries,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
     ): CitiesRepository {
-        return CitiesRepositoryImpl(citiesApiService, citiesDao)
+        return CitiesRepositoryImpl(citiesApiService, citiesDao, ioDispatcher)
     }
 
     @Provides
@@ -81,5 +84,11 @@ object AppModule {
         @ApplicationContext context: Context
     ): AppDatabase {
         return AppDatabase(AndroidSqliteDriver(AppDatabase.Schema, context, "app.db"))
+    }
+
+    @Provides
+    @IoDispatcher
+    fun provideIoDispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
     }
 }

@@ -7,33 +7,38 @@ import by.ssrlab.krokapp.mobile.shared.data.entities.CityApi
 import by.ssrlab.krokapp.mobile.shared.domain.entities.City
 import by.ssrlab.krokapp.mobile.shared.domain.repos.CitiesRepository
 import com.squareup.sqldelight.runtime.coroutines.asFlow
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 /**
  * @author Alexander Nevertovich
  */
 class CitiesRepositoryImpl(
     private val citiesApiService: CitiesApiService,
-    private val citiesDao: AppDatabaseQueries
+    private val citiesDao: AppDatabaseQueries,
+    private val ioDispatcher: CoroutineDispatcher
 ) : CitiesRepository {
 
     override suspend fun getCities(): Flow<List<City>> {
-        val citiesFromDb = citiesDao.selectAllCities()
+        withContext(ioDispatcher) {
+            val citiesFromDb = citiesDao.selectAllCities().executeAsList()
 
-        if (citiesFromDb.executeAsList().isNullOrEmpty()) {
-            val citiesFormApi = citiesApiService.getCities()
+            if (citiesFromDb.isNullOrEmpty()) {
+                val citiesFormApi = citiesApiService.getCities()
 
-            citiesDao.transaction {
-                citiesDao.removeAllCities()
+                citiesDao.transaction {
+                    citiesDao.removeAllCities()
 
-                citiesFormApi.forEach {
-                    citiesDao.insertCity(it.toRaw())
+                    citiesFormApi.forEach {
+                        citiesDao.insertCity(it.toRaw())
+                    }
                 }
             }
         }
 
-        return citiesFromDb.asFlow().map {
+        return citiesDao.selectAllCities().asFlow().map {
             it.executeAsList().map { it.toEntity() }
         }
     }
